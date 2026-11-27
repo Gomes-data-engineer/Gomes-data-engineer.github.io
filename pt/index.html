@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=4">
+  <link rel="stylesheet" href="../styles.css?v=5">
   <script>
     document.documentElement.classList.add('js');
     try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
@@ -63,7 +63,7 @@
           </div>
         </div>
         <h1 class="reveal"><span class="grad">Analytics Engineer</span><br><span class="muted">com forte experiência em Engenharia de Dados.</span></h1>
-        <p class="lead reveal">Levo dados de fontes bagunçadas até modelos testados e dashboards que se entendem de primeira: desenhados no Figma, pensados para a decisão, sem nada na tela que não tenha motivo para estar lá. Agentes de LLM como Claude Code e Gemini automatizam a parte repetitiva.</p>
+        <p class="lead reveal">Transformo dados bagunçados em modelos testados e dashboards que se entendem de primeira, com agentes de IA cuidando do trabalho repetitivo.</p>
         <div class="cta reveal">
           <a class="btn btn-primary" href="../assets/VitorGomes_Dados_PTBR_v2.pdf" target="_blank" rel="noopener">Baixar currículo</a>
           <a class="btn" href="https://www.linkedin.com/in/vitorgomesbusiness" target="_blank" rel="noopener">LinkedIn</a>
@@ -98,17 +98,16 @@
         <h2>Visão de negócio, rigor de engenharia.</h2>
       </div>
       <div class="about">
-        <div class="about-text reveal">
-          <p>Comecei em operações na Teleperformance, de agente bilíngue a supervisor de operações, criando reports e análises de SLA e KPIs que coordenadores e gerentes usavam para tomar decisões operacionais. Foi ali que aprendi a parte do trabalho com dados que nenhuma ferramenta ensina: o que quem decide realmente precisa ver.</p>
-          <p>Desde 2022 trabalho como analytics engineer. Na Evollo, construí a ingestão e o data lake no AWS S3 que alimentavam uma plataforma de análise de conversas, e deixei os modelos de Power BI 82% mais leves. Na CPP Digital, uma consultoria de software holandesa, comecei a área de dados do zero: warehouse, modelos dbt, padrões e cinco produtos de dados, apresentados ao CEO, CTO e CFO.</p>
-          <p>Trato dados como código (versionamento, testes, documentação) e dashboards como produto (desenhados no Figma, enxutos, validados com quem usa). Agentes de IA fazem o trabalho pesado de QA, scaffolding e documentação. Trabalho em inglês todos os dias com times da Holanda, de Portugal e das Filipinas.</p>
-        </div>
+        <ul class="about-list reveal">
+          <li><strong>Comecei em operações.</strong> Quatro anos na Teleperformance criando reports de SLA e KPIs que coordenadores e gerentes usavam para decidir.</li>
+          <li><strong>Analytics engineer desde 2022.</strong> Pipelines de dados e BI na Evollo; uma área de dados criada do zero na CPP Digital.</li>
+          <li><strong>Como eu trabalho.</strong> Dados como código, dashboards como produto, agentes de IA para QA e documentação, em inglês no dia a dia.</li>
+        </ul>
         <dl class="facts reveal">
           <div><dt>Onde estou</dt><dd>Brasil · UTC-3 (sobreposição com EUA e Europa)</dd></div>
-          <div><dt>Foco</dt><dd>Analytics Engineering · Visualização de dados · Engenharia de Dados</dd></div>
-          <div><dt>Idiomas</dt><dd>Português (nativo) · Inglês (avançado, uso diário)</dd></div>
+          <div><dt>Foco</dt><dd>Analytics Engineering · Dataviz · Engenharia de Dados</dd></div>
+          <div><dt>Idiomas</dt><dd>Português (nativo) · Inglês (avançado)</dd></div>
           <div><dt>Modelo</dt><dd>Remoto · PJ ou CLT · contractor/B2B para fora</dd></div>
-          <div><dt>Reconhecimento</dt><dd>1º lugar, desafio Netflix de Power BI · destaque, desafio Pokémon</dd></div>
         </dl>
       </div>
     </section>
@@ -118,7 +117,6 @@
       <div class="section-head reveal">
         <p class="kicker">01 · Cases profissionais</p>
         <h2>Trabalho que foi para produção</h2>
-        <p class="section-sub">Código e dados das empresas são confidenciais, então os projetos estão escritos como cases: problema, abordagem, resultado.</p>
       </div>
 
       <article class="case spot reveal">
@@ -127,38 +125,39 @@
           <span class="date">dez 2022 – set 2026</span>
         </div>
         <h3>O pipeline de dados por trás de uma plataforma de speech analytics</h3>
+        <p class="case-sum">Ingestão, portões de qualidade e BI para uma plataforma que atendia grandes bancos, telecom, varejo e seguradoras.</p>
         <div class="lineage-box"><div class="lineage" data-lineage="evollo"></div></div>
         <div class="case-grid">
-          <div>
-            <h4>Problema</h4>
-            <p>Grandes bancos, operadoras de telecom, varejistas e seguradoras brasileiros enviavam metadados de interações e gravações de chamadas em todo tipo de formato, muitas vezes à mão. A plataforma de speech analytics precisava desses dados validados e ligados às gravações certas antes da transcrição, com prazo diário, e os modelos de Power BI em cima disso eram pesados (336 MB, atualização de 20 minutos).</p>
-            <h4>Abordagem: um pipeline de seis etapas por cliente</h4>
-            <ol class="steps">
-              <li><strong>Captura</strong>: metadados e arquivos de APIs dinâmicas e CRMs, SFTP, S3, SharePoint/OneDrive e bancos SQL/NoSQL (<strong>MySQL, PostgreSQL, SQL Server, MongoDB</strong>), em CSV, JSON, XML, compactados e mídias, com <strong>Python e Pentaho</strong>.</li>
-              <li><strong>Padronização</strong>: os arquivos brutos vão para o <strong>AWS S3</strong> e viram arquivos tabulares datados (<code>YYYYMMDD_metadados.csv</code>).</li>
-              <li><strong>Portão de qualidade</strong>: checagem automática de colunas, tipos de dados, separadores e codificação. O que é válido entra no data warehouse; o que é inválido dispara um <strong>e-mail automático ao cliente</strong> dizendo exatamente o que corrigir e reenviar.</li>
-              <li><strong>Seleção e validação de mídia</strong>: regras de negócio de cada cliente no warehouse escolhem as interações a analisar; o cliente sobe as gravações correspondentes em cerca de um dia, e uma <strong>rotina à meia-noite</strong> valida nome, tamanho e integridade dos arquivos, alertando sobre falhas.</li>
-              <li><strong>Speech analytics</strong>: as mídias validadas passam por transcrição (fala → texto) e <strong>marcação com IA</strong> de termos e categorias, e seguem para a plataforma de qualidade.</li>
-              <li><strong>Entrega</strong>: <strong>Power BI embarcado</strong> na plataforma, além de arquivos de retorno customizados, com transcrições e marcações, para os sistemas internos de cada cliente.</li>
-            </ol>
-            <h4>Por baixo dos panos</h4>
-            <ul>
-              <li>Orquestração orientada a tabela com <strong>AWS Lambda e Terraform</strong>, logs no CloudWatch e o <strong>Unity</strong>, um motor Python de metadados e qualidade com alertas, substituindo os uploads manuais dos clientes.</li>
-              <li>No BI, levei a lógica pesada <strong>para o SQL</strong> (esquema estrela, query folding, DAX mais enxuto); fluxos de negócio automatizados com <strong>Power Automate</strong>.</li>
-            </ul>
-          </div>
+          <ul class="impact">
+            <li>Construí um <strong>pipeline de 6 etapas por cliente</strong>: captura → S3 → portão de qualidade → validação de mídia → IA de fala → entrega</li>
+            <li><strong>Portão de qualidade automático</strong>: arquivo inválido gera e-mail ao cliente dizendo o que corrigir</li>
+            <li>Ingestão de APIs, SFTP, S3, SharePoint e bancos SQL/NoSQL com <strong>Python, Pentaho, Lambda e Terraform</strong></li>
+            <li>Modelos de Power BI <strong>82% mais leves e 65% mais rápidos</strong>, levando a lógica para o SQL</li>
+            <li><strong>Líder interino do time de dados</strong>: 3 pessoas, Jira, Scrum</li>
+          </ul>
           <div class="case-side">
-            <div class="result"><span class="result-num">6 etapas</span><span>captura → portão de qualidade → IA de fala → entrega, por cliente</span></div>
-            <div class="result"><span class="result-num">00:00</span><span>validação noturna das mídias com alerta automático ao cliente</span></div>
-            <div class="result"><span class="result-num">−82%</span><span>tamanho do modelo (336 → 60 MB)</span></div>
-            <div class="result"><span class="result-num">−65%</span><span>tempo de atualização (20 → 7 min)</span></div>
-            <div class="result"><span class="result-num">5 GB→348 MB</span><span>pico de RAM por tabela</span></div>
-            <div class="result"><span class="result-num">Líder</span><span>líder interino do time de dados (3 pessoas, Jira, Scrum)</span></div>
+            <div class="results">
+              <div class="result"><span class="result-num">−82%</span><span>tamanho do modelo</span></div>
+              <div class="result"><span class="result-num">−65%</span><span>tempo de atualização</span></div>
+              <div class="result"><span class="result-num">00:00</span><span>validação noturna de mídia</span></div>
+              <div class="result"><span class="result-num">6</span><span>etapas por cliente</span></div>
+            </div>
             <ul class="chips">
-              <li>Python</li><li>Pentaho</li><li>AWS S3</li><li>Lambda</li><li>CloudWatch</li><li>Terraform</li><li>MySQL</li><li>PostgreSQL</li><li>SQL Server</li><li>MongoDB</li><li>SFTP</li><li>SharePoint</li><li>Power BI</li><li>Power Automate</li><li>Microsoft Fabric</li><li>Jira</li>
+              <li>Python</li><li>Pentaho</li><li>AWS S3</li><li>Lambda</li><li>Terraform</li><li>PostgreSQL</li><li>SQL Server</li><li>MySQL</li><li>MongoDB</li><li>Power BI</li><li>Power Automate</li>
             </ul>
           </div>
         </div>
+        <details class="more">
+          <summary>Ver as seis etapas</summary>
+          <ol class="steps">
+            <li><strong>Captura</strong>: metadados e arquivos (CSV, JSON, XML, compactados, mídias) de APIs, CRMs, SFTP e bancos.</li>
+            <li><strong>Padronização</strong>: os arquivos brutos vão para o S3 como tabelas datadas (<code>YYYYMMDD_metadados.csv</code>).</li>
+            <li><strong>Portão de qualidade</strong>: checagem de colunas, tipos, separadores e codificação; válido → warehouse, inválido → e-mail ao cliente.</li>
+            <li><strong>Seleção e validação de mídia</strong>: regras do cliente escolhem as interações; gravações validadas à meia-noite (nome, tamanho, integridade).</li>
+            <li><strong>Speech analytics</strong>: transcrição e marcação de termos e categorias com IA.</li>
+            <li><strong>Entrega</strong>: Power BI embarcado e arquivos de retorno customizados por cliente.</li>
+          </ol>
+        </details>
       </article>
 
       <article class="case spot reveal">
@@ -167,27 +166,25 @@
           <span class="date">jun 2026 – dez 2026</span>
         </div>
         <h3>Criando uma área de dados do zero</h3>
+        <p class="case-sum">Como único profissional de dados de uma consultoria de software holandesa, com apresentação para CEO, CTO e CFO.</p>
         <div class="lineage-box"><div class="lineage" data-lineage="cpp"></div></div>
         <div class="case-grid">
-          <div>
-            <h4>Problema</h4>
-            <p>Como único profissional de dados da empresa, encontrei RH, QA e operações com perguntas reais, mas os dados estavam espalhados entre Notion, GitLab, Slack, SharePoint e timesheets, sem warehouse, sem histórico e sem padrões.</p>
-            <h4>Abordagem</h4>
-            <ul>
-              <li>Construí o warehouse: <strong>PostgreSQL + dbt Core + Python + Docker + GitLab</strong>, camadas Bronze / Silver / Gold, <strong>~30 testes SQL customizados</strong>.</li>
-              <li>Ingestão da <strong>API do Notion</strong> (ciclos de avaliação do RH), da <strong>API do GitLab</strong> (merge requests, merges, pipelines que falharam: métricas para o time de QA), da <strong>API do Slack</strong> e de arquivos no SharePoint.</li>
-              <li>Entreguei cinco produtos de dados: o <strong>Plano de Desenvolvimento Individual (IDP)</strong> com People Health Index e regras de elegibilidade a promoção, Workforce analytics, <strong>QA Maturity</strong>, um diretório de pessoas e um estudo de <strong>uso de IA</strong>.</li>
-              <li>Uso de IA: quem usa Claude Code, quanto e para qual cliente, rateado pelas horas do timesheet, para a empresa saber quanto cobrar para cobrir o custo de IA.</li>
-              <li>Escrevi <strong>7 skills de Claude Code</strong> (scaffold, KPIs, pipeline, tema, design, QA, documentação) para que qualquer pessoa obtenha a mesma estrutura e os mesmos checks; padrões de BI, PBIP/TMDL no Git, regras de GDPR/LGPD (só agregados, grupos pequenos suprimidos).</li>
-            </ul>
-          </div>
+          <ul class="impact">
+            <li>Warehouse com <strong>PostgreSQL, dbt, Python e Docker</strong>: Bronze/Silver/Gold, ~30 testes</li>
+            <li>Ingestão das <strong>APIs do Notion, GitLab e Slack</strong> e de arquivos do SharePoint</li>
+            <li><strong>5 produtos de dados</strong>: plano de desenvolvimento e health index, workforce, maturidade de QA, diretório de pessoas, uso de IA</li>
+            <li><strong>Uso de IA</strong>: custo do Claude Code por cliente, para precificar IA nos serviços</li>
+            <li><strong>7 skills de Claude Code</strong> que padronizam como o BI é construído, revisado e documentado</li>
+          </ul>
           <div class="case-side">
-            <div class="result"><span class="result-num">C-level</span><span>apresentado a CEO, CTO e CFO</span></div>
-            <div class="result"><span class="result-num">5</span><span>produtos de dados, do zero</span></div>
-            <div class="result"><span class="result-num">7</span><span>skills de Claude Code para BI</span></div>
-            <div class="result"><span class="result-num">~30</span><span>testes de dados customizados</span></div>
+            <div class="results">
+              <div class="result"><span class="result-num">5</span><span>produtos de dados</span></div>
+              <div class="result"><span class="result-num">7</span><span>skills de Claude Code</span></div>
+              <div class="result"><span class="result-num">~30</span><span>testes de dados</span></div>
+              <div class="result"><span class="result-num">C-level</span><span>apresentação</span></div>
+            </div>
             <ul class="chips">
-              <li>dbt Core</li><li>PostgreSQL</li><li>Python</li><li>Docker</li><li>GitLab</li><li>Notion API</li><li>Slack API</li><li>SharePoint</li><li>Power BI (PBIP/TMDL)</li><li>Figma</li><li>Claude Code</li><li>Gemini</li>
+              <li>dbt Core</li><li>PostgreSQL</li><li>Python</li><li>Docker</li><li>GitLab</li><li>Notion API</li><li>Power BI (PBIP/TMDL)</li><li>Figma</li><li>Claude Code</li>
             </ul>
           </div>
         </div>
@@ -199,14 +196,13 @@
       <div class="section-head reveal">
         <p class="kicker">02 · Visualização de dados</p>
         <h2>Dashboards que explicam, não que enfeitam.</h2>
-        <p class="section-sub">Um dashboard bonito que ninguém entende é um dashboard que falhou. Desenho relatórios como produto: começo pela decisão, mantenho só o que ajuda nela e desenho no Figma antes de qualquer visual entrar no Power BI.</p>
       </div>
 
       <div class="principles">
-        <div class="principle reveal"><span class="p-num">01</span><h3>A pergunta vem primeiro</h3><p>Cada página responde a uma decisão. KPIs, metas e bases de comparação são combinados com quem pede antes do design começar.</p></div>
-        <div class="principle reveal"><span class="p-num">02</span><h3>Só o necessário</h3><p>Tiro o que não carrega significado: bordas, legendas, casas decimais, cores extras. Cor serve para apontar, não para pintar.</p></div>
-        <div class="principle reveal"><span class="p-num">03</span><h3>Desenhado no Figma</h3><p>Wireframes e mocks primeiro; depois fundos, temas e uma biblioteca de componentes, claro e escuro, sobre um design system.</p></div>
-        <div class="principle reveal"><span class="p-num">04</span><h3>Rápido por design</h3><p>Esquema estrela, DAX enxuto e lógica no SQL, para o relatório responder em segundos, não em minutos.</p></div>
+        <div class="principle reveal"><span class="p-num">01</span><h3>A pergunta vem primeiro</h3><p>Cada página responde a uma decisão.</p></div>
+        <div class="principle reveal"><span class="p-num">02</span><h3>Só o necessário</h3><p>Cor serve para apontar, não para pintar.</p></div>
+        <div class="principle reveal"><span class="p-num">03</span><h3>Desenhado no Figma</h3><p>Mocks e design system primeiro.</p></div>
+        <div class="principle reveal"><span class="p-num">04</span><h3>Rápido por design</h3><p>Esquema estrela, DAX enxuto, lógica no SQL.</p></div>
       </div>
 
       <ol class="process reveal" aria-label="Processo de design">
@@ -224,7 +220,7 @@
           </span>
           <span class="shot-body">
             <strong>Netflix Overview</strong>
-            <span>Vencedor do desafio Kick Start de Power BI na comunidade brasileira de dados. 7.900 títulos analisados por ano de lançamento, avaliação por gênero e votos do público, num layout de app de streaming.</span>
+            <span>Vencedor do desafio Kick Start de Power BI: 7.900 títulos num layout de app de streaming.</span>
             <span class="open">Abrir relatório →</span>
           </span>
         </button>
@@ -238,7 +234,7 @@
           </span>
           <span class="shot-body">
             <strong>Powérmon · Arena DataB</strong>
-            <span>Destaque do desafio Arena DataB. 898 Pokémon com um card estilo jogo que vai da lista completa até os atributos e as evoluções de cada personagem.</span>
+            <span>Destaque do desafio Arena DataB: 898 Pokémon com navegação estilo jogo.</span>
             <span class="open">Abrir relatório →</span>
           </span>
         </button>
@@ -249,7 +245,7 @@
           <span class="shot-img"><img src="https://db.xperiun.com/storage/v1/object/public/portfolio/bubble/f1742167600778x26133342336862685-pag1.webp" alt="Dashboard de vendas com faturamento, ticket médio e margem bruta" loading="lazy"></span>
           <span class="shot-body">
             <strong>Dashboard de Vendas</strong>
-            <span>Faturamento, ticket médio e margem bruta contra o mesmo período do ano anterior; atingimento de meta por vendedor.</span>
+            <span>Faturamento, margem e metas por vendedor.</span>
             <span class="open">Abrir relatório →</span>
           </span>
         </button>
@@ -257,7 +253,7 @@
           <span class="shot-img"><img src="https://db.xperiun.com/storage/v1/object/public/portfolio/bubble/f1742167877831x24809626382164330-pag1.webp" alt="Dashboard de People Analytics com headcount e turnover" loading="lazy"></span>
           <span class="shot-body">
             <strong>People Analytics</strong>
-            <span>Contratações, turnover, headcount, absenteísmo, folha e horas extras para o RH.</span>
+            <span>Headcount, turnover e absenteísmo para o RH.</span>
             <span class="open">Abrir relatório →</span>
           </span>
         </button>
@@ -265,7 +261,7 @@
           <span class="shot-img"><img src="https://db.xperiun.com/storage/v1/object/public/portfolio/bubble/f1742168258469x90864378135395030-pag1.webp" alt="Dashboard de chamados de suporte com cumprimento de SLA" loading="lazy"></span>
           <span class="shot-body">
             <strong>Chamados de Suporte</strong>
-            <span>Chamados abertos e fechados, cumprimento de SLA e volume ano contra ano para acompanhar o desempenho do time.</span>
+            <span>Cumprimento de SLA e volume de chamados, ano contra ano.</span>
             <span class="open">Abrir relatório →</span>
           </span>
         </button>
@@ -288,14 +284,12 @@
             </a>
           </div>
           <h3>FinBot: finanças por conversa</h3>
+          <p class="case-sum">Texto ou áudio no Telegram → o Gemini transforma em JSON → PostgreSQL → dashboards.</p>
           <div class="lineage-box"><div class="lineage" data-lineage="finbot"></div></div>
-          <div class="card-grid">
-            <p>Você manda um texto ou áudio no Telegram; o Gemini transforma em uma transação estruturada (JSON), o Python grava no PostgreSQL e um dashboard mostra fluxo de caixa, parcelas, dívidas e metas por categoria.</p>
-            <ul class="points">
-              <li>Esquema relacional com CHECK constraints para manter os parcelamentos consistentes e índices para consultas por período</li>
-              <li>v2: gateway FastAPI, workers Celery e front-end analítico em Next.js, tudo em Docker Compose</li>
-            </ul>
-          </div>
+          <ul class="impact">
+            <li>Esquema com CHECK constraints que mantêm os parcelamentos consistentes</li>
+            <li>Gateway FastAPI, workers Celery e front-end Next.js em Docker Compose</li>
+          </ul>
           <ul class="chips">
             <li>Python</li><li>PostgreSQL</li><li>Supabase</li><li>FastAPI</li><li>Celery</li><li>Docker</li><li>Streamlit</li><li>Next.js</li><li>Gemini</li><li>Telegram</li>
           </ul>
@@ -313,32 +307,27 @@
         <div class="domain spot reveal">
           <span class="d-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span>
           <h3>Analytics engineering</h3>
-          <p>Transformar dados brutos em camadas testadas e documentadas em que o negócio pode confiar.</p>
           <ul class="chips"><li>SQL</li><li>PostgreSQL</li><li>MySQL</li><li>SQL Server</li><li>Azure SQL</li><li>dbt Core</li><li>Esquema estrela</li><li>Medallion</li><li>Testes de dados</li></ul>
         </div>
         <div class="domain spot reveal">
           <span class="d-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6" rx="1"/><rect x="12" y="8" width="3" height="10" rx="1"/><rect x="17" y="5" width="3" height="13" rx="1"/></svg></span>
           <h3>Visualização de dados e BI</h3>
-          <p>Dashboards que se entendem de primeira, sobre modelos rápidos o bastante para acompanhar.</p>
           <ul class="chips"><li>Power BI</li><li>DAX</li><li>Power Query (M)</li><li>Modelos semânticos</li><li>Power BI Embedded</li><li>PBIP / TMDL</li><li>Figma</li><li>Design systems</li><li>Excel</li></ul>
         </div>
         <div class="domain spot reveal">
           <span class="d-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 1 0-1.4-8.8A6 6 0 0 0 4.3 12.6 3.5 3.5 0 0 0 6.5 19h11z"/></svg></span>
           <h3>Engenharia de dados e cloud</h3>
-          <p>Pipelines confiáveis que trazem dados de APIs, bancos e arquivos, estruturados ou não.</p>
           <ul class="chips"><li>Python / Pandas</li><li>APIs REST</li><li>SFTP</li><li>AWS S3</li><li>Lambda</li><li>CloudWatch</li><li>Terraform</li><li>MongoDB</li><li>Pentaho</li><li>Docker</li><li>Microsoft Fabric</li></ul>
           <p class="next"><span>Em construção:</span> Databricks · PySpark · Airflow</p>
         </div>
         <div class="domain domain-ai spot reveal">
           <span class="d-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span>
           <h3>IA e automação</h3>
-          <p>Agentes de LLM e automações que tiram o trabalho repetitivo das equipes de dados.</p>
           <ul class="chips"><li>Claude Code</li><li>Skills de Claude Code</li><li>Gemini</li><li>Agentes LLM para QA</li><li>Documentação automática</li><li>Apps de dados com LLM</li><li>Análise de uso de IA</li><li>Power Automate</li><li>Alertas por e-mail</li></ul>
         </div>
         <div class="domain domain-wide spot reveal">
           <span class="d-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="12" r="2.5"/><path d="M6 8.5v7M8.3 7.2l7.4 3.6"/></svg></span>
           <h3>Forma de trabalhar</h3>
-          <p>Dados como código, perto do negócio.</p>
           <ul class="chips"><li>Git</li><li>GitHub</li><li>GitLab</li><li>Jira</li><li>Scrum</li><li>Code review e checklists de QA</li><li>GDPR / LGPD</li><li>Workshops com stakeholders</li><li>Líder interino de time</li><li>Inglês no dia a dia</li></ul>
         </div>
       </div>
@@ -351,9 +340,9 @@
         <h2>Trajetória</h2>
       </div>
       <div class="timeline reveal">
-        <div class="tl-item"><span class="tl-date">jun – dez 2026</span><div><strong>Data Engineer</strong> · CPP Digital (Amsterdã, remoto): criei a área de dados</div></div>
-        <div class="tl-item"><span class="tl-date">dez 2022 – set 2026</span><div><strong>Analytics Engineer</strong> · Evollo (remoto): líder interino do time de dados</div></div>
-        <div class="tl-item"><span class="tl-date">dez 2018 – dez 2022</span><div><strong>Supervisor de Operações Bilíngue</strong> · Teleperformance: reports de SLA e KPIs para coordenadores e gerentes</div></div>
+        <div class="tl-item"><span class="tl-date">jun – dez 2026</span><div><strong>Data Engineer</strong> · CPP Digital (Amsterdã, remoto)</div></div>
+        <div class="tl-item"><span class="tl-date">dez 2022 – set 2026</span><div><strong>Analytics Engineer</strong> · Evollo (remoto)</div></div>
+        <div class="tl-item"><span class="tl-date">dez 2018 – dez 2022</span><div><strong>Supervisor de Operações Bilíngue</strong> · Teleperformance</div></div>
         <div class="tl-item edu"><span class="tl-date">Pós-graduação</span><div>Engenharia e Arquitetura de Dados com IA · XP Educação</div></div>
         <div class="tl-item edu"><span class="tl-date">2023 – 2025</span><div>Data Analytics &amp; Modern Data Stack · Xperiun</div></div>
         <div class="tl-item edu"><span class="tl-date">2014 – 2018</span><div>Bacharelado em Ciência e Tecnologia · UFRN</div></div>
@@ -364,7 +353,7 @@
     <section id="contact" class="section container">
       <div class="contact reveal">
         <h2>Vamos conversar sobre dados.</h2>
-        <p>Aberto a vagas de Analytics Engineer, BI Engineer e Data Engineer: remoto, PJ ou CLT, e contractor/B2B para empresas de fora.</p>
+        <p>Aberto a vagas de Analytics Engineer, BI Engineer e Data Engineer, remotas.</p>
         <div class="cta">
           <a class="btn btn-primary" href="mailto:vitortecla@outlook.com">vitortecla@outlook.com</a>
           <a class="btn" href="https://www.linkedin.com/in/vitorgomesbusiness" target="_blank" rel="noopener">LinkedIn</a>
@@ -388,6 +377,6 @@
     <iframe id="reportFrame" title="Relatório do Power BI" allowfullscreen></iframe>
   </dialog>
 
-  <script src="../script.js?v=4"></script>
+  <script src="../script.js?v=5"></script>
 </body>
 </html>

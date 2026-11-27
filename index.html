@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
   <script>
     document.documentElement.classList.add('js');
     try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
@@ -62,7 +62,7 @@
           </div>
         </div>
         <h1 class="reveal"><span class="grad">Analytics Engineer</span><br><span class="muted">with strong Data Engineering experience.</span></h1>
-        <p class="lead reveal">I take data from messy sources to tested models and dashboards that are understood at a glance — designed in Figma, built for decisions, nothing on the page that doesn't earn its place. LLM agents like Claude Code and Gemini automate the repetitive parts.</p>
+        <p class="lead reveal">I turn messy data into tested models and dashboards people understand at a glance — with AI agents handling the busywork.</p>
         <div class="cta reveal">
           <a class="btn btn-primary" href="assets/VitorGomes_Analytics_Engineer_v2.pdf" target="_blank" rel="noopener">Download resume</a>
           <a class="btn" href="https://www.linkedin.com/in/vitorgomesbusiness" target="_blank" rel="noopener">LinkedIn</a>
@@ -97,17 +97,16 @@
         <h2>Business-minded, engineering-grade.</h2>
       </div>
       <div class="about">
-        <div class="about-text reveal">
-          <p>I started in operations at Teleperformance, from bilingual agent to operations supervisor, building SLA and KPI reports and analyses that coordinators and managers used to make operational decisions. That's where I learned the part of data work that tools don't teach: what the person deciding actually needs to see.</p>
-          <p>Since 2022 I've worked as an analytics engineer. At Evollo I built ingestion and a data lake on AWS S3 that fed a conversation-analytics platform, and made its Power BI models 82% lighter. At CPP Digital, a Dutch software consultancy, I started the data practice from zero — warehouse, dbt models, standards and five data products — and presented it to the CEO, CTO and CFO.</p>
-          <p>I treat data as code (version control, tests, documentation) and dashboards as products (designed in Figma, decluttered, tested with users). AI agents do the heavy lifting on QA, scaffolding and docs. I work in English every day with teams in the Netherlands, Portugal and the Philippines.</p>
-        </div>
+        <ul class="about-list reveal">
+          <li><strong>Started in operations.</strong> Four years at Teleperformance building SLA and KPI reports that coordinators and managers used to make decisions.</li>
+          <li><strong>Analytics engineer since 2022.</strong> Data pipelines and BI at Evollo; a data practice built from zero at CPP Digital.</li>
+          <li><strong>How I work.</strong> Data as code, dashboards as products, AI agents for QA and docs — in English, every day.</li>
+        </ul>
         <dl class="facts reveal">
           <div><dt>Based in</dt><dd>Brazil · UTC-3 (overlaps US East &amp; Europe)</dd></div>
-          <div><dt>Focus</dt><dd>Analytics Engineering · Data visualization · Data Engineering</dd></div>
-          <div><dt>Languages</dt><dd>Portuguese (native) · English (advanced, daily use)</dd></div>
+          <div><dt>Focus</dt><dd>Analytics Engineering · Dataviz · Data Engineering</dd></div>
+          <div><dt>Languages</dt><dd>Portuguese (native) · English (advanced)</dd></div>
           <div><dt>Work model</dt><dd>Remote · contractor/B2B or CLT/PJ</dd></div>
-          <div><dt>Recognition</dt><dd>1st place, Netflix Power BI challenge · featured, Pokémon challenge</dd></div>
         </dl>
       </div>
     </section>
@@ -117,7 +116,6 @@
       <div class="section-head reveal">
         <p class="kicker">01 · Professional case studies</p>
         <h2>Work that shipped</h2>
-        <p class="section-sub">Client code and data are proprietary, so these are written as case studies: problem, approach, result.</p>
       </div>
 
       <article class="case spot reveal">
@@ -126,38 +124,39 @@
           <span class="date">Dec 2022 – Sep 2026</span>
         </div>
         <h3>The data pipeline behind a speech-analytics platform</h3>
+        <p class="case-sum">Ingestion, quality gates and BI for a platform serving large Brazilian banks, telecom, retail and insurers.</p>
         <div class="lineage-box"><div class="lineage" data-lineage="evollo"></div></div>
         <div class="case-grid">
-          <div>
-            <h4>Problem</h4>
-            <p>Large Brazilian banks, telecom, retail and insurance companies sent interaction metadata and call recordings in every format, often by hand. The speech-analytics platform needed that data validated and matched to the right recordings before transcription, on a daily deadline — and the Power BI models on top were heavy (336 MB, 20-minute refreshes).</p>
-            <h4>Approach: a six-step pipeline per client</h4>
-            <ol class="steps">
-              <li><strong>Capture</strong> — metadata and files from dynamic APIs and CRMs, SFTP, S3, SharePoint/OneDrive and SQL/NoSQL databases (<strong>MySQL, PostgreSQL, SQL Server, MongoDB</strong>): CSV, JSON, XML, archives and media, with <strong>Python and Pentaho</strong>.</li>
-              <li><strong>Standardize</strong> — raw files land in <strong>AWS S3</strong> and are normalized into dated tabular files (<code>YYYYMMDD_metadata.csv</code>).</li>
-              <li><strong>Quality gate</strong> — automatic checks on columns, data types, separators and encoding. Valid files load into the warehouse; invalid ones trigger an <strong>automatic e-mail to the client</strong> saying exactly what to fix and resend.</li>
-              <li><strong>Selection &amp; media check</strong> — client-specific business rules in the warehouse pick the interactions to analyze; clients upload the matching recordings within about a day, and a <strong>midnight job</strong> validates file name, size and integrity, alerting on failures.</li>
-              <li><strong>Speech analytics</strong> — validated media goes to transcription (speech → text) and <strong>AI tagging</strong> of terms and categories, then into the quality platform.</li>
-              <li><strong>Delivery</strong> — <strong>Power BI embedded</strong> in the platform, plus custom return files with transcripts and tags for each client's internal systems.</li>
-            </ol>
-            <h4>Under the hood</h4>
-            <ul>
-              <li>Table-driven orchestration with <strong>AWS Lambda and Terraform</strong>, CloudWatch logs, and <strong>Unity</strong>, a Python metadata &amp; quality engine with alerts — replacing manual client uploads.</li>
-              <li>On the BI side, moved heavy logic <strong>upstream into SQL</strong> (star schema, query folding, leaner DAX); business workflows automated with <strong>Power Automate</strong>.</li>
-            </ul>
-          </div>
+          <ul class="impact">
+            <li>Built a <strong>6-step pipeline per client</strong>: capture → S3 → quality gate → media check → speech AI → delivery</li>
+            <li><strong>Automated quality gate</strong>: invalid files e-mail the client exactly what to fix</li>
+            <li>Ingestion from APIs, SFTP, S3, SharePoint and SQL/NoSQL with <strong>Python, Pentaho, Lambda and Terraform</strong></li>
+            <li>Power BI models <strong>82% lighter, 65% faster</strong> by moving logic upstream into SQL</li>
+            <li><strong>Interim data team lead</strong> — 3 people, Jira, Scrum</li>
+          </ul>
           <div class="case-side">
-            <div class="result"><span class="result-num">6 steps</span><span>capture → quality gate → speech AI → delivery, per client</span></div>
-            <div class="result"><span class="result-num">00:00</span><span>nightly media validation with automatic client alerts</span></div>
-            <div class="result"><span class="result-num">−82%</span><span>model size (336 → 60 MB)</span></div>
-            <div class="result"><span class="result-num">−65%</span><span>refresh time (20 → 7 min)</span></div>
-            <div class="result"><span class="result-num">5 GB→348 MB</span><span>peak RAM per table</span></div>
-            <div class="result"><span class="result-num">Lead</span><span>interim data team lead (3 people, Jira, Scrum)</span></div>
+            <div class="results">
+              <div class="result"><span class="result-num">−82%</span><span>model size</span></div>
+              <div class="result"><span class="result-num">−65%</span><span>refresh time</span></div>
+              <div class="result"><span class="result-num">00:00</span><span>nightly media check</span></div>
+              <div class="result"><span class="result-num">6</span><span>steps per client</span></div>
+            </div>
             <ul class="chips">
-              <li>Python</li><li>Pentaho</li><li>AWS S3</li><li>Lambda</li><li>CloudWatch</li><li>Terraform</li><li>MySQL</li><li>PostgreSQL</li><li>SQL Server</li><li>MongoDB</li><li>SFTP</li><li>SharePoint</li><li>Power BI</li><li>Power Automate</li><li>Microsoft Fabric</li><li>Jira</li>
+              <li>Python</li><li>Pentaho</li><li>AWS S3</li><li>Lambda</li><li>Terraform</li><li>PostgreSQL</li><li>SQL Server</li><li>MySQL</li><li>MongoDB</li><li>Power BI</li><li>Power Automate</li>
             </ul>
           </div>
         </div>
+        <details class="more">
+          <summary>See the six steps</summary>
+          <ol class="steps">
+            <li><strong>Capture</strong> — metadata and files (CSV, JSON, XML, archives, media) from APIs, CRMs, SFTP and databases.</li>
+            <li><strong>Standardize</strong> — raw files land in S3 as dated tables (<code>YYYYMMDD_metadata.csv</code>).</li>
+            <li><strong>Quality gate</strong> — columns, types, separators and encoding checked; valid → warehouse, invalid → client e-mail.</li>
+            <li><strong>Selection &amp; media check</strong> — client rules pick interactions; recordings validated at midnight (name, size, integrity).</li>
+            <li><strong>Speech analytics</strong> — transcription and AI tagging of terms and categories.</li>
+            <li><strong>Delivery</strong> — embedded Power BI plus custom return files per client.</li>
+          </ol>
+        </details>
       </article>
 
       <article class="case spot reveal">
@@ -166,27 +165,25 @@
           <span class="date">Jun 2026 – Dec 2026</span>
         </div>
         <h3>Starting a data practice from zero</h3>
+        <p class="case-sum">As the only data professional at a Dutch software consultancy — presented to the CEO, CTO and CFO.</p>
         <div class="lineage-box"><div class="lineage" data-lineage="cpp"></div></div>
         <div class="case-grid">
-          <div>
-            <h4>Problem</h4>
-            <p>As the company's only data professional, I found HR, QA and operations asking real questions — but the data lived in Notion, GitLab, Slack, SharePoint and timesheets, with no warehouse, no history and no standards.</p>
-            <h4>Approach</h4>
-            <ul>
-              <li>Built the warehouse: <strong>PostgreSQL + dbt Core + Python + Docker + GitLab</strong>, Bronze / Silver / Gold, <strong>~30 custom SQL tests</strong>.</li>
-              <li>Ingested the <strong>Notion API</strong> (HR evaluation cycles), the <strong>GitLab API</strong> (merge requests, merges, failed pipelines — metrics for the QA team), the <strong>Slack API</strong> and SharePoint files.</li>
-              <li>Shipped five data products: the <strong>Individual Development Plan</strong> with a People Health Index and promotion-eligibility logic, Workforce analytics, <strong>QA Maturity</strong>, a people directory and an <strong>AI Usage</strong> study.</li>
-              <li>AI Usage: who uses Claude Code, how much, and for which client — prorated by timesheet hours — so the company could see how much to charge to cover AI costs.</li>
-              <li>Wrote <strong>7 Claude Code skills</strong> (scaffold, KPI advisor, pipeline, theme, design, QA, documentation) so anyone gets the same structure and checks; BI standards, PBIP/TMDL in Git, GDPR/LGPD rules (aggregates only, small groups suppressed).</li>
-            </ul>
-          </div>
+          <ul class="impact">
+            <li>Warehouse with <strong>PostgreSQL, dbt, Python and Docker</strong> — Bronze/Silver/Gold, ~30 tests</li>
+            <li>Ingested the <strong>Notion, GitLab and Slack APIs</strong> plus SharePoint files</li>
+            <li><strong>5 data products</strong>: development plans &amp; health index, workforce, QA maturity, people directory, AI usage</li>
+            <li><strong>AI Usage</strong>: Claude Code cost per client, to price AI into services</li>
+            <li><strong>7 Claude Code skills</strong> that standardize how BI is built, checked and documented</li>
+          </ul>
           <div class="case-side">
-            <div class="result"><span class="result-num">C-level</span><span>presented to CEO, CTO and CFO</span></div>
-            <div class="result"><span class="result-num">5</span><span>data products, from zero</span></div>
-            <div class="result"><span class="result-num">7</span><span>Claude Code skills for BI delivery</span></div>
-            <div class="result"><span class="result-num">~30</span><span>custom data tests</span></div>
+            <div class="results">
+              <div class="result"><span class="result-num">5</span><span>data products</span></div>
+              <div class="result"><span class="result-num">7</span><span>Claude Code skills</span></div>
+              <div class="result"><span class="result-num">~30</span><span>data tests</span></div>
+              <div class="result"><span class="result-num">C-level</span><span>presentation</span></div>
+            </div>
             <ul class="chips">
-              <li>dbt Core</li><li>PostgreSQL</li><li>Python</li><li>Docker</li><li>GitLab</li><li>Notion API</li><li>Slack API</li><li>SharePoint</li><li>Power BI (PBIP/TMDL)</li><li>Figma</li><li>Claude Code</li><li>Gemini</li>
+              <li>dbt Core</li><li>PostgreSQL</li><li>Python</li><li>Docker</li><li>GitLab</li><li>Notion API</li><li>Power BI (PBIP/TMDL)</li><li>Figma</li><li>Claude Code</li>
             </ul>
           </div>
         </div>
@@ -198,14 +195,13 @@
       <div class="section-head reveal">
         <p class="kicker">02 · Data visualization</p>
         <h2>Dashboards that explain, not decorate.</h2>
-        <p class="section-sub">A beautiful dashboard nobody understands is a failed one. I design reports like products: start from the decision, keep only what helps it, and design in Figma before a single visual goes into Power BI.</p>
       </div>
 
       <div class="principles">
-        <div class="principle reveal"><span class="p-num">01</span><h3>Question first</h3><p>Every page answers a decision. KPIs, targets and baselines are agreed with the stakeholder before design starts.</p></div>
-        <div class="principle reveal"><span class="p-num">02</span><h3>Only what's needed</h3><p>Remove what doesn't carry meaning: borders, legends, decimals, extra colors. Color is used to point, not to paint.</p></div>
-        <div class="principle reveal"><span class="p-num">03</span><h3>Designed in Figma</h3><p>Wireframes and mocks first, then backgrounds, themes and a component library — light and dark — built on a design system.</p></div>
-        <div class="principle reveal"><span class="p-num">04</span><h3>Fast by design</h3><p>Star schema, lean DAX and logic upstream in SQL, so the report answers in seconds, not minutes.</p></div>
+        <div class="principle reveal"><span class="p-num">01</span><h3>Question first</h3><p>Every page answers a decision.</p></div>
+        <div class="principle reveal"><span class="p-num">02</span><h3>Only what's needed</h3><p>Color points; it doesn't paint.</p></div>
+        <div class="principle reveal"><span class="p-num">03</span><h3>Designed in Figma</h3><p>Mocks and a design system first.</p></div>
+        <div class="principle reveal"><span class="p-num">04</span><h3>Fast by design</h3><p>Star schema, lean DAX, SQL upstream.</p></div>
       </div>
 
       <ol class="process reveal" aria-label="Design process">
@@ -223,7 +219,7 @@
           </span>
           <span class="shot-body">
             <strong>Netflix Overview</strong>
-            <span>Winner of the Kick Start Power BI challenge in the Brazilian data community. 7,900 titles explored by release year, genre rating and audience votes, in a streaming-app layout.</span>
+            <span>Winner of the Kick Start Power BI challenge — 7,900 titles in a streaming-app layout.</span>
             <span class="open">Open report →</span>
           </span>
         </button>
@@ -237,7 +233,7 @@
           </span>
           <span class="shot-body">
             <strong>Powérmon · Arena DataB</strong>
-            <span>Featured highlight of the Arena DataB challenge. 898 Pokémon with a game-style card that drills from the full roster into one character's stats and evolutions.</span>
+            <span>Featured in the Arena DataB challenge — 898 Pokémon, game-style drill-down.</span>
             <span class="open">Open report →</span>
           </span>
         </button>
@@ -248,7 +244,7 @@
           <span class="shot-img"><img src="https://db.xperiun.com/storage/v1/object/public/portfolio/bubble/f1742167600778x26133342336862685-pag1.webp" alt="Sales dashboard with revenue, average ticket and gross margin" loading="lazy"></span>
           <span class="shot-body">
             <strong>Sales Dashboard</strong>
-            <span>Revenue, average ticket and gross margin vs. same period last year; target attainment by sales rep.</span>
+            <span>Revenue, margin and targets by sales rep.</span>
             <span class="open">Open report →</span>
           </span>
         </button>
@@ -256,7 +252,7 @@
           <span class="shot-img"><img src="https://db.xperiun.com/storage/v1/object/public/portfolio/bubble/f1742167877831x24809626382164330-pag1.webp" alt="People analytics dashboard with headcount and attrition" loading="lazy"></span>
           <span class="shot-body">
             <strong>People Analytics</strong>
-            <span>Hiring, attrition, headcount, absenteeism, payroll and overtime trends for HR.</span>
+            <span>Headcount, attrition and absenteeism for HR.</span>
             <span class="open">Open report →</span>
           </span>
         </button>
@@ -264,7 +260,7 @@
           <span class="shot-img"><img src="https://db.xperiun.com/storage/v1/object/public/portfolio/bubble/f1742168258469x90864378135395030-pag1.webp" alt="Support tickets dashboard with SLA compliance" loading="lazy"></span>
           <span class="shot-body">
             <strong>Support Tickets</strong>
-            <span>Open vs. closed tickets, SLA compliance and year-over-year volume to track team performance.</span>
+            <span>SLA compliance and ticket volume, year over year.</span>
             <span class="open">Open report →</span>
           </span>
         </button>
@@ -287,14 +283,12 @@
             </a>
           </div>
           <h3>FinBot — conversational finance tracker</h3>
+          <p class="case-sum">Text or voice on Telegram → Gemini turns it into JSON → PostgreSQL → dashboards.</p>
           <div class="lineage-box"><div class="lineage" data-lineage="finbot"></div></div>
-          <div class="card-grid">
-            <p>Send a text or voice message on Telegram; Gemini turns it into a structured transaction (JSON), Python writes it to PostgreSQL, and a dashboard shows cash flow, installments, debts and category budgets.</p>
-            <ul class="points">
-              <li>Relational schema with CHECK constraints for installment consistency and indexes for time-based queries</li>
-              <li>v2: FastAPI gateway, Celery workers and a Next.js analytics front-end, all in Docker Compose</li>
-            </ul>
-          </div>
+          <ul class="impact">
+            <li>Schema with CHECK constraints that keep installments consistent</li>
+            <li>FastAPI gateway, Celery workers and Next.js front-end in Docker Compose</li>
+          </ul>
           <ul class="chips">
             <li>Python</li><li>PostgreSQL</li><li>Supabase</li><li>FastAPI</li><li>Celery</li><li>Docker</li><li>Streamlit</li><li>Next.js</li><li>Gemini</li><li>Telegram</li>
           </ul>
@@ -304,7 +298,7 @@
       </div>
     </section>
 
-    <!-- SKILLS: by what I do, not by level -->
+    <!-- SKILLS -->
     <section id="skills" class="section container">
       <div class="section-head reveal">
         <p class="kicker">04 · Skills</p>
@@ -314,32 +308,27 @@
         <div class="domain spot reveal">
           <span class="d-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span>
           <h3>Analytics engineering</h3>
-          <p>Modeling raw data into tested, documented layers the business can rely on.</p>
           <ul class="chips"><li>SQL</li><li>PostgreSQL</li><li>MySQL</li><li>SQL Server</li><li>Azure SQL</li><li>dbt Core</li><li>Star schema</li><li>Medallion</li><li>Data tests</li></ul>
         </div>
         <div class="domain spot reveal">
           <span class="d-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6" rx="1"/><rect x="12" y="8" width="3" height="10" rx="1"/><rect x="17" y="5" width="3" height="13" rx="1"/></svg></span>
           <h3>Data visualization &amp; BI</h3>
-          <p>Dashboards designed to be understood at a glance — and models fast enough to keep up.</p>
           <ul class="chips"><li>Power BI</li><li>DAX</li><li>Power Query (M)</li><li>Semantic models</li><li>Power BI Embedded</li><li>PBIP / TMDL</li><li>Figma</li><li>Design systems</li><li>Excel</li></ul>
         </div>
         <div class="domain spot reveal">
           <span class="d-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 1 0-1.4-8.8A6 6 0 0 0 4.3 12.6 3.5 3.5 0 0 0 6.5 19h11z"/></svg></span>
           <h3>Data engineering &amp; cloud</h3>
-          <p>Pipelines that ingest APIs, databases and files — structured or not — reliably.</p>
           <ul class="chips"><li>Python / Pandas</li><li>REST APIs</li><li>SFTP</li><li>AWS S3</li><li>Lambda</li><li>CloudWatch</li><li>Terraform</li><li>MongoDB</li><li>Pentaho</li><li>Docker</li><li>Microsoft Fabric</li></ul>
           <p class="next"><span>Now building:</span> Databricks · PySpark · Airflow</p>
         </div>
         <div class="domain domain-ai spot reveal">
           <span class="d-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span>
           <h3>AI &amp; automation</h3>
-          <p>LLM agents and automation that remove repetitive work from data teams.</p>
           <ul class="chips"><li>Claude Code</li><li>Claude Code skills</li><li>Gemini</li><li>LLM agents for QA</li><li>Auto-documentation</li><li>LLM data apps</li><li>AI usage analytics</li><li>Power Automate</li><li>E-mail alerting</li></ul>
         </div>
         <div class="domain domain-wide spot reveal">
           <span class="d-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="12" r="2.5"/><path d="M6 8.5v7M8.3 7.2l7.4 3.6"/></svg></span>
           <h3>Ways of working</h3>
-          <p>Data as code, close to the business.</p>
           <ul class="chips"><li>Git</li><li>GitHub</li><li>GitLab</li><li>Jira</li><li>Scrum</li><li>Code review &amp; QA checklists</li><li>GDPR / LGPD</li><li>Stakeholder workshops</li><li>Interim team lead</li><li>English, daily</li></ul>
         </div>
       </div>
@@ -352,9 +341,9 @@
         <h2>Background</h2>
       </div>
       <div class="timeline reveal">
-        <div class="tl-item"><span class="tl-date">Jun – Dec 2026</span><div><strong>Data Engineer</strong> · CPP Digital (Amsterdam, remote) — started the data practice</div></div>
-        <div class="tl-item"><span class="tl-date">Dec 2022 – Sep 2026</span><div><strong>Analytics Engineer</strong> · Evollo (remote) — interim data team lead</div></div>
-        <div class="tl-item"><span class="tl-date">Dec 2018 – Dec 2022</span><div><strong>Bilingual Operations Supervisor</strong> · Teleperformance — SLA &amp; KPI reporting for coordinators and managers</div></div>
+        <div class="tl-item"><span class="tl-date">Jun – Dec 2026</span><div><strong>Data Engineer</strong> · CPP Digital (Amsterdam, remote)</div></div>
+        <div class="tl-item"><span class="tl-date">Dec 2022 – Sep 2026</span><div><strong>Analytics Engineer</strong> · Evollo (remote)</div></div>
+        <div class="tl-item"><span class="tl-date">Dec 2018 – Dec 2022</span><div><strong>Bilingual Operations Supervisor</strong> · Teleperformance</div></div>
         <div class="tl-item edu"><span class="tl-date">Postgrad</span><div>Data Engineering &amp; Architecture with AI · XP Educação</div></div>
         <div class="tl-item edu"><span class="tl-date">2023 – 2025</span><div>Data Analytics &amp; Modern Data Stack · Xperiun</div></div>
         <div class="tl-item edu"><span class="tl-date">2014 – 2018</span><div>B.Sc. Science &amp; Technology · UFRN</div></div>
@@ -365,7 +354,7 @@
     <section id="contact" class="section container">
       <div class="contact reveal">
         <h2>Let's talk data.</h2>
-        <p>Open to Analytics Engineer, BI Engineer and Data Engineer roles — remote, contractor/B2B or CLT/PJ.</p>
+        <p>Open to Analytics Engineer, BI Engineer and Data Engineer roles — remote.</p>
         <div class="cta">
           <a class="btn btn-primary" href="mailto:vitortecla@outlook.com">vitortecla@outlook.com</a>
           <a class="btn" href="https://www.linkedin.com/in/vitorgomesbusiness" target="_blank" rel="noopener">LinkedIn</a>
@@ -389,6 +378,6 @@
     <iframe id="reportFrame" title="Power BI report" allowfullscreen></iframe>
   </dialog>
 
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>

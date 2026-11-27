@@ -209,6 +209,30 @@ h2 { margin-top: 12px; font-size: clamp(26px, 4vw, 36px); letter-spacing: -.025e
 .case p, .case li { font-size: 15px; }
 .case ul:not(.chips) { padding-left: 18px; display: grid; gap: 6px; }
 .case-side { display: flex; flex-direction: column; gap: 12px; }
+/* CONDENSED CONTENT: one-line summary, impact bullets, 2x2 results, expandable detail */
+.case-sum { margin-top: 6px; color: var(--muted); font-size: 15px; max-width: 760px; }
+.case ul.impact, .card ul.impact, .about-list { list-style: none; padding: 0; display: grid; gap: 10px; align-content: start; }
+ul.impact li, .about-list li { position: relative; padding-left: 22px; font-size: 15px; line-height: 1.5; }
+ul.impact li::before, .about-list li::before {
+  content: ""; position: absolute; left: 2px; top: .55em; width: 8px; height: 8px; border-radius: 2px;
+  background: var(--accent); transform: rotate(45deg);
+}
+.card ul.impact { margin: 4px 0 10px; }
+.card ul.impact li { color: var(--muted); font-size: 14px; }
+.about-list li { color: var(--muted); font-size: 16px; }
+.about-list li strong { color: var(--text); }
+.results { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.results .result { flex-direction: column; align-items: flex-start; gap: 2px; padding: 12px 14px; font-size: 13px; }
+.results .result-num { min-width: 0; font-size: 22px; }
+details.more { margin-top: 18px; border-top: 1px solid var(--border); padding-top: 14px; }
+details.more summary {
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer; list-style: none;
+  font: 500 13px/1 "JetBrains Mono", monospace; color: var(--accent);
+}
+details.more summary::-webkit-details-marker { display: none; }
+details.more summary::after { content: "+"; font-size: 16px; transition: transform .2s; }
+details.more[open] summary::after { transform: rotate(45deg); }
+details.more .steps { margin-top: 14px; }
 .case ol.steps { list-style: none; padding: 0; counter-reset: step; display: grid; gap: 10px; }
 .case ol.steps li { counter-increment: step; position: relative; padding-left: 36px; }
 .case ol.steps li::before {

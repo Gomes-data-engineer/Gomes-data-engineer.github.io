@@ -66,7 +66,7 @@ function renderLineage(el) {
   const L = spec.layers.length;
   const maxPerLayer = Math.max(...spec.layers.map((l) => l.length));
   const horizontal = W / L >= 118;
-  const pad = 6, nodeH = 40, pos = {};
+  const pad = 6, nodeH = horizontal ? 40 : 34, pos = {};
   let H, nodeW;
 
   if (horizontal) {
@@ -81,7 +81,7 @@ function renderLineage(el) {
       });
     });
   } else {
-    const colGap = 8, layerGap = 30;
+    const colGap = 8, layerGap = 18;
     H = L * nodeH + (L - 1) * layerGap + pad * 2;
     spec.layers.forEach((layer, i) => {
       const w = Math.min(150, (W - pad * 2 - (layer.length - 1) * colGap) / layer.length);
@@ -115,10 +115,10 @@ function renderLineage(el) {
     const sub = n.sub && w >= 80 ? (n.sub.length > Math.floor((w - 10) / 5.8) ? '' : n.sub) : '';
     nodes += `<g class="ln-node ${n.s}"><title>${esc(n.t + (n.sub ? ' — ' + n.sub : ''))}</title>` +
       `<rect x="${x}" y="${y}" width="${w}" height="${nodeH}" rx="8"/>` +
-      `<rect class="bar" x="${x}" y="${y + 9}" width="3" height="${nodeH - 18}" rx="1.5"/>` +
+      `<rect class="bar" x="${x}" y="${y + 8}" width="3" height="${nodeH - 16}" rx="1.5"/>` +
       (sub
-        ? `<text x="${cx}" y="${y + 17}" text-anchor="middle">${esc(label)}</text><text class="sub" x="${cx}" y="${y + 30}" text-anchor="middle">${esc(sub)}</text>`
-        : `<text x="${cx}" y="${y + 24}" text-anchor="middle">${esc(label)}</text>`) +
+        ? `<text x="${cx}" y="${y + nodeH / 2 - 3}" text-anchor="middle">${esc(label)}</text><text class="sub" x="${cx}" y="${y + nodeH / 2 + 10}" text-anchor="middle">${esc(sub)}</text>`
+        : `<text x="${cx}" y="${y + nodeH / 2 + 4}" text-anchor="middle">${esc(label)}</text>`) +
       `</g>`;
   });
   el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Data lineage diagram">${edges}${flows}${nodes}</svg>`;
