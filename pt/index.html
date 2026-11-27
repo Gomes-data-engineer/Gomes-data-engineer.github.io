@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=3">
+  <link rel="stylesheet" href="../styles.css?v=4">
   <script>
     document.documentElement.classList.add('js');
     try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
@@ -126,22 +126,30 @@
           <span class="tag">Evollo · Analytics Engineer</span>
           <span class="date">dez 2022 – set 2026</span>
         </div>
-        <h3>O data lake por trás de uma plataforma de análise de conversas</h3>
+        <h3>O pipeline de dados por trás de uma plataforma de speech analytics</h3>
         <div class="lineage-box"><div class="lineage" data-lineage="evollo"></div></div>
         <div class="case-grid">
           <div>
             <h4>Problema</h4>
-            <p>Os dados dos clientes chegavam de muitos lugares e em muitos formatos, alguns enviados à mão. O produto precisava de metadados limpos ligados aos arquivos certos de áudio, PDF e texto para reproduzir cada conversa, e os modelos de Power BI em cima disso eram pesados (336 MB, atualização de 20 minutos).</p>
-            <h4>Abordagem</h4>
+            <p>Grandes bancos, operadoras de telecom, varejistas e seguradoras brasileiros enviavam metadados de interações e gravações de chamadas em todo tipo de formato, muitas vezes à mão. A plataforma de speech analytics precisava desses dados validados e ligados às gravações certas antes da transcrição, com prazo diário, e os modelos de Power BI em cima disso eram pesados (336 MB, atualização de 20 minutos).</p>
+            <h4>Abordagem: um pipeline de seis etapas por cliente</h4>
+            <ol class="steps">
+              <li><strong>Captura</strong>: metadados e arquivos de APIs dinâmicas e CRMs, SFTP, S3, SharePoint/OneDrive e bancos SQL/NoSQL (<strong>MySQL, PostgreSQL, SQL Server, MongoDB</strong>), em CSV, JSON, XML, compactados e mídias, com <strong>Python e Pentaho</strong>.</li>
+              <li><strong>Padronização</strong>: os arquivos brutos vão para o <strong>AWS S3</strong> e viram arquivos tabulares datados (<code>YYYYMMDD_metadados.csv</code>).</li>
+              <li><strong>Portão de qualidade</strong>: checagem automática de colunas, tipos de dados, separadores e codificação. O que é válido entra no data warehouse; o que é inválido dispara um <strong>e-mail automático ao cliente</strong> dizendo exatamente o que corrigir e reenviar.</li>
+              <li><strong>Seleção e validação de mídia</strong>: regras de negócio de cada cliente no warehouse escolhem as interações a analisar; o cliente sobe as gravações correspondentes em cerca de um dia, e uma <strong>rotina à meia-noite</strong> valida nome, tamanho e integridade dos arquivos, alertando sobre falhas.</li>
+              <li><strong>Speech analytics</strong>: as mídias validadas passam por transcrição (fala → texto) e <strong>marcação com IA</strong> de termos e categorias, e seguem para a plataforma de qualidade.</li>
+              <li><strong>Entrega</strong>: <strong>Power BI embarcado</strong> na plataforma, além de arquivos de retorno customizados, com transcrições e marcações, para os sistemas internos de cada cliente.</li>
+            </ol>
+            <h4>Por baixo dos panos</h4>
             <ul>
-              <li>Extração com <strong>Python e Pentaho</strong> de SFTP, APIs REST e CRMs, outros buckets S3, SharePoint/OneDrive e bancos relacionais e NoSQL (<strong>MySQL, PostgreSQL, SQL Server, MongoDB</strong>), com paginação, retries e logs no CloudWatch.</li>
-              <li>Dados brutos no <strong>data lake S3</strong>, quase sempre em JSON, ao lado dos arquivos das conversas: áudios, PDFs, textos, CSV/XLSX e arquivos TAR/ZIP. Alguns fluxos iam direto para o banco.</li>
-              <li>Um fluxo Python em três etapas: <strong>validação</strong> (Unity, um motor de metadados e qualidade com alertas) → <strong>tratamento</strong> → <strong>envio</strong> para a plataforma da empresa, que usava os metadados e o caminho do arquivo para encontrar e reproduzir cada conversa.</li>
-              <li>Orquestração orientada a tabela com <strong>AWS Lambda e Terraform</strong>, substituindo os uploads manuais dos clientes.</li>
+              <li>Orquestração orientada a tabela com <strong>AWS Lambda e Terraform</strong>, logs no CloudWatch e o <strong>Unity</strong>, um motor Python de metadados e qualidade com alertas, substituindo os uploads manuais dos clientes.</li>
               <li>No BI, levei a lógica pesada <strong>para o SQL</strong> (esquema estrela, query folding, DAX mais enxuto); fluxos de negócio automatizados com <strong>Power Automate</strong>.</li>
             </ul>
           </div>
           <div class="case-side">
+            <div class="result"><span class="result-num">6 etapas</span><span>captura → portão de qualidade → IA de fala → entrega, por cliente</span></div>
+            <div class="result"><span class="result-num">00:00</span><span>validação noturna das mídias com alerta automático ao cliente</span></div>
             <div class="result"><span class="result-num">−82%</span><span>tamanho do modelo (336 → 60 MB)</span></div>
             <div class="result"><span class="result-num">−65%</span><span>tempo de atualização (20 → 7 min)</span></div>
             <div class="result"><span class="result-num">5 GB→348 MB</span><span>pico de RAM por tabela</span></div>
@@ -380,6 +388,6 @@
     <iframe id="reportFrame" title="Relatório do Power BI" allowfullscreen></iframe>
   </dialog>
 
-  <script src="../script.js?v=3"></script>
+  <script src="../script.js?v=4"></script>
 </body>
 </html>

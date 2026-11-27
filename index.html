@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=4">
   <script>
     document.documentElement.classList.add('js');
     try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
@@ -125,22 +125,30 @@
           <span class="tag">Evollo · Analytics Engineer</span>
           <span class="date">Dec 2022 – Sep 2026</span>
         </div>
-        <h3>The data lake behind a conversation-analytics platform</h3>
+        <h3>The data pipeline behind a speech-analytics platform</h3>
         <div class="lineage-box"><div class="lineage" data-lineage="evollo"></div></div>
         <div class="case-grid">
           <div>
             <h4>Problem</h4>
-            <p>Client data arrived from many places and in many shapes, some of it uploaded by hand. The product needed clean metadata linked to the right audio, PDF and text files to replay each conversation — and the Power BI models on top were heavy (336 MB, 20-minute refreshes).</p>
-            <h4>Approach</h4>
+            <p>Large Brazilian banks, telecom, retail and insurance companies sent interaction metadata and call recordings in every format, often by hand. The speech-analytics platform needed that data validated and matched to the right recordings before transcription, on a daily deadline — and the Power BI models on top were heavy (336 MB, 20-minute refreshes).</p>
+            <h4>Approach: a six-step pipeline per client</h4>
+            <ol class="steps">
+              <li><strong>Capture</strong> — metadata and files from dynamic APIs and CRMs, SFTP, S3, SharePoint/OneDrive and SQL/NoSQL databases (<strong>MySQL, PostgreSQL, SQL Server, MongoDB</strong>): CSV, JSON, XML, archives and media, with <strong>Python and Pentaho</strong>.</li>
+              <li><strong>Standardize</strong> — raw files land in <strong>AWS S3</strong> and are normalized into dated tabular files (<code>YYYYMMDD_metadata.csv</code>).</li>
+              <li><strong>Quality gate</strong> — automatic checks on columns, data types, separators and encoding. Valid files load into the warehouse; invalid ones trigger an <strong>automatic e-mail to the client</strong> saying exactly what to fix and resend.</li>
+              <li><strong>Selection &amp; media check</strong> — client-specific business rules in the warehouse pick the interactions to analyze; clients upload the matching recordings within about a day, and a <strong>midnight job</strong> validates file name, size and integrity, alerting on failures.</li>
+              <li><strong>Speech analytics</strong> — validated media goes to transcription (speech → text) and <strong>AI tagging</strong> of terms and categories, then into the quality platform.</li>
+              <li><strong>Delivery</strong> — <strong>Power BI embedded</strong> in the platform, plus custom return files with transcripts and tags for each client's internal systems.</li>
+            </ol>
+            <h4>Under the hood</h4>
             <ul>
-              <li>Extraction with <strong>Python and Pentaho</strong> from SFTP, REST APIs and CRMs, other S3 buckets, SharePoint/OneDrive and relational and NoSQL databases (<strong>MySQL, PostgreSQL, SQL Server, MongoDB</strong>) — pagination, retries, CloudWatch logs.</li>
-              <li>Landed raw data in the <strong>S3 data lake</strong>, mostly as JSON, next to the conversation files: audio, PDFs, text, CSV/XLSX and TAR/ZIP archives. Some flows went straight to the database.</li>
-              <li>A three-step Python flow: <strong>validation</strong> (Unity, a metadata &amp; quality engine with alerts) → <strong>treatment</strong> → <strong>delivery</strong> to the company platform, which used the metadata and file path to find and play back each conversation.</li>
-              <li>Table-driven orchestration with <strong>AWS Lambda and Terraform</strong>, replacing manual client uploads.</li>
+              <li>Table-driven orchestration with <strong>AWS Lambda and Terraform</strong>, CloudWatch logs, and <strong>Unity</strong>, a Python metadata &amp; quality engine with alerts — replacing manual client uploads.</li>
               <li>On the BI side, moved heavy logic <strong>upstream into SQL</strong> (star schema, query folding, leaner DAX); business workflows automated with <strong>Power Automate</strong>.</li>
             </ul>
           </div>
           <div class="case-side">
+            <div class="result"><span class="result-num">6 steps</span><span>capture → quality gate → speech AI → delivery, per client</span></div>
+            <div class="result"><span class="result-num">00:00</span><span>nightly media validation with automatic client alerts</span></div>
             <div class="result"><span class="result-num">−82%</span><span>model size (336 → 60 MB)</span></div>
             <div class="result"><span class="result-num">−65%</span><span>refresh time (20 → 7 min)</span></div>
             <div class="result"><span class="result-num">5 GB→348 MB</span><span>peak RAM per table</span></div>
@@ -381,6 +389,6 @@
     <iframe id="reportFrame" title="Power BI report" allowfullscreen></iframe>
   </dialog>
 
-  <script src="script.js?v=3"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>

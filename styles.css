@@ -209,6 +209,15 @@ h2 { margin-top: 12px; font-size: clamp(26px, 4vw, 36px); letter-spacing: -.025e
 .case p, .case li { font-size: 15px; }
 .case ul:not(.chips) { padding-left: 18px; display: grid; gap: 6px; }
 .case-side { display: flex; flex-direction: column; gap: 12px; }
+.case ol.steps { list-style: none; padding: 0; counter-reset: step; display: grid; gap: 10px; }
+.case ol.steps li { counter-increment: step; position: relative; padding-left: 36px; }
+.case ol.steps li::before {
+  content: counter(step); position: absolute; left: 0; top: 1px; width: 24px; height: 24px; border-radius: 7px;
+  display: grid; place-items: center; font: 600 12px/1 "JetBrains Mono", monospace;
+  background: var(--accent-soft); color: var(--accent);
+}
+.case ol.steps li:nth-child(5)::before { background: var(--ai-soft); color: var(--accent-2); }
+.case code { font: 500 12.5px "JetBrains Mono", monospace; padding: 1px 6px; border-radius: 5px; background: var(--surface-2); white-space: nowrap; }
 .result {
   display: flex; align-items: baseline; gap: 12px; padding: 14px 16px; border-radius: 10px;
   background: var(--surface-2); font-size: 14px; color: var(--muted);

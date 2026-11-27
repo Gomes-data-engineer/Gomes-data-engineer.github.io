@@ -27,14 +27,15 @@ const LINEAGE = {
   },
   evollo: {
     layers: [
-      [{ id: 'sftp', t: 'SFTP', s: 'source' }, { id: 'api', t: 'APIs · CRMs', s: 'source', sub: 'REST · paginated' }, { id: 'cloud', t: 'S3 · SharePoint', s: 'source', sub: '+ OneDrive' }, { id: 'db', t: 'SQL · NoSQL', s: 'source', sub: 'MySQL·PG·Mongo' }],
-      [{ id: 'ing', t: 'Python · Pentaho', s: 'source', sub: 'Lambda · Terraform' }],
-      [{ id: 'br', t: 'S3 data lake', s: 'bronze', sub: 'JSON · audio · pdf' }],
-      [{ id: 'val', t: 'Validation', s: 'silver', sub: 'Unity DQ · alerts' }],
-      [{ id: 'tr', t: 'Treatment', s: 'gold', sub: 'normalized' }],
-      [{ id: 'pl', t: 'Platform', s: 'serve', sub: 'metadata + file path' }, { id: 'bi', t: 'Power BI', s: 'serve', sub: '60 MB · 7 min' }]
+      [{ id: 'api', t: 'APIs · CRMs', s: 'source', sub: 'dynamic' }, { id: 'sftp', t: 'SFTP', s: 'source', sub: 'CSV · JSON · XML' }, { id: 'cloud', t: 'S3 · SharePoint', s: 'source', sub: '+ OneDrive' }, { id: 'db', t: 'SQL · NoSQL', s: 'source', sub: 'MySQL·PG·Mongo' }],
+      [{ id: 'br', t: 'S3 raw', s: 'bronze', sub: 'YYYYMMDD_*.csv' }],
+      [{ id: 'gate', t: 'Quality gate', s: 'silver', sub: 'schema · codec' }],
+      [{ id: 'dw', t: 'Warehouse', s: 'gold', sub: 'selection rules' }, { id: 'mail', t: 'Client e-mail', s: 'serve', sub: 'fix & resend' }],
+      [{ id: 'media', t: 'Media check', s: 'silver', sub: '00:00 · integrity' }],
+      [{ id: 'sp', t: 'Speech AI', s: 'ai', sub: 'transcribe · tag' }],
+      [{ id: 'q', t: 'Quality app', s: 'serve', sub: 'metadata + path' }, { id: 'bi', t: 'Power BI', s: 'serve', sub: 'embedded' }, { id: 'ret', t: 'Return files', s: 'serve', sub: 'custom .csv' }]
     ],
-    edges: [['sftp', 'ing'], ['api', 'ing'], ['cloud', 'ing'], ['db', 'ing'], ['ing', 'br'], ['br', 'val'], ['val', 'tr'], ['tr', 'pl'], ['tr', 'bi']]
+    edges: [['api', 'br'], ['sftp', 'br'], ['cloud', 'br'], ['db', 'br'], ['br', 'gate'], ['gate', 'dw'], ['gate', 'mail'], ['dw', 'media'], ['media', 'sp'], ['sp', 'q'], ['sp', 'bi'], ['sp', 'ret']]
   },
   cpp: {
     layers: [
@@ -131,7 +132,8 @@ function renderLineage(el) {
       if (e.target._w !== w) { e.target._w = w; renderLineage(e.target); }
     });
   });
-  els.forEach((el) => ro.observe(el));
+  // Draw once right away (ResizeObserver may not fire in background tabs), then keep in sync with resizes
+  els.forEach((el) => { el._w = Math.round(el.clientWidth); renderLineage(el); ro.observe(el); });
 })();
 
 // ---------- Technology icons on chips (first match wins; order matters) ----------
